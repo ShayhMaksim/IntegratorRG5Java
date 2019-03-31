@@ -15,7 +15,7 @@ public class TMatrix implements IMatrix {
 		this.data=new double[n][m];
 	}
 	
-	public  static IMatrix E(int k) {   //////////единичная матрица
+	public  static IMatrix E(int k) {   //////////ГҐГ¤ГЁГ­ГЁГ·Г­Г Гї Г¬Г ГІГ°ГЁГ¶Г 
 		IMatrix E = new TMatrix(k,k);
 		for (int i=0; i<k;i++) {
 			for (int j=0; j<k; j++) {
@@ -100,7 +100,7 @@ public class TMatrix implements IMatrix {
 	public IMatrix Add(IMatrix a) {
 		// TODO Auto-generated method stub
 		try {
-			if (a.GetColCount()!=this.GetColCount()) throw new Exception("Несовместимые размерности");
+			if (a.GetColCount()!=this.GetColCount()) throw new Exception("ГЌГҐГ±Г®ГўГ¬ГҐГ±ГІГЁГ¬Г»ГҐ Г°Г Г§Г¬ГҐГ°Г­Г®Г±ГІГЁ");
 			}
 			catch(Exception ex)
 			{
@@ -123,7 +123,7 @@ public class TMatrix implements IMatrix {
 	public IMatrix Sub(IMatrix a) {
 		// TODO Auto-generated method stub
 		try {
-			if (a.GetColCount()!=this.GetColCount()) throw new Exception("Несовместимые размерности");
+			if (a.GetColCount()!=this.GetColCount()) throw new Exception("ГЌГҐГ±Г®ГўГ¬ГҐГ±ГІГЁГ¬Г»ГҐ Г°Г Г§Г¬ГҐГ°Г­Г®Г±ГІГЁ");
 			}
 			catch(Exception ex)
 			{
@@ -144,13 +144,13 @@ public class TMatrix implements IMatrix {
 	public IMatrix Mult(IMatrix a) {
 		// TODO Auto-generated method stub
 		try {
-			if (a.GetColCount()!=this.GetColCount()) throw new Exception("Несовместимые размерности");
+			if (a.GetColCount()!=this.GetColCount()) throw new Exception("ГЌГҐГ±Г®ГўГ¬ГҐГ±ГІГЁГ¬Г»ГҐ Г°Г Г§Г¬ГҐГ°Г­Г®Г±ГІГЁ");
 			}
 			catch(Exception ex)
 			{
 				Resize(a.GetRowHigh(),a.GetColCount());
 			}
-		IMatrix matrix=new TMatrix(this.GetRowCount(),this.GetColCount());
+		IMatrix matrix=new TMatrix(this.GetRowCount(),a.GetColCount());
 		for(int i=0;i<this.GetRowCount();i++)
 		{
 			for(int j=0;j<this.GetColCount();j++)
@@ -184,7 +184,7 @@ public class TMatrix implements IMatrix {
 	public IVector Mult(IVector a) {
 		// TODO Auto-generated method stub
 		try {
-			if (a.GetSize()!=this.GetRowCount()) throw new Exception("Несовместимые размерности");
+			if (a.GetSize()!=this.GetRowCount()) throw new Exception("ГЌГҐГ±Г®ГўГ¬ГҐГ±ГІГЁГ¬Г»ГҐ Г°Г Г§Г¬ГҐГ°Г­Г®Г±ГІГЁ");
 			}
 			catch(Exception ex)
 			{
@@ -205,15 +205,15 @@ public class TMatrix implements IMatrix {
 	@Override
 	public double Det() {
 		// TODO Auto-generated method stub
-		//клонируем матрицу
+		//ГЄГ«Г®Г­ГЁГ°ГіГҐГ¬ Г¬Г ГІГ°ГЁГ¶Гі
 		int count;
 		double result=1;
 		IMatrix mt1=new TMatrix(this.GetRowCount(),this.GetColCount());
 		mt1=this.Clone();
 		IMatrix mt2=new TMatrix(this.GetRowCount(),this.GetColCount());
 		mt2=this.Clone();
-		/*матрицы mt1 и mt2 необходимы,чтобы не испортить получаемую матрицу "this",которая может быть использована в других областях программы
-		строим треугольную матрицу*/
+		/*Г¬Г ГІГ°ГЁГ¶Г» mt1 ГЁ mt2 Г­ГҐГ®ГЎГµГ®Г¤ГЁГ¬Г»,Г·ГІГ®ГЎГ» Г­ГҐ ГЁГ±ГЇГ®Г°ГІГЁГІГј ГЇГ®Г«ГіГ·Г ГҐГ¬ГіГѕ Г¬Г ГІГ°ГЁГ¶Гі "this",ГЄГ®ГІГ®Г°Г Гї Г¬Г®Г¦ГҐГІ ГЎГ»ГІГј ГЁГ±ГЇГ®Г«ГјГ§Г®ГўГ Г­Г  Гў Г¤Г°ГіГЈГЁГµ Г®ГЎГ«Г Г±ГІГїГµ ГЇГ°Г®ГЈГ°Г Г¬Г¬Г»
+		Г±ГІГ°Г®ГЁГ¬ ГІГ°ГҐГіГЈГ®Г«ГјГ­ГіГѕ Г¬Г ГІГ°ГЁГ¶Гі*/
 		for(int i=0;i<this.GetColCount();i++)
 		{
 			if (mt1.GetItem(i, i)==0 && i<this.GetRowCount()-1)
@@ -226,7 +226,7 @@ public class TMatrix implements IMatrix {
 				mt1.SwapRows(i, count);
 				result=-result;			
 			}
-			/*копирование рабочей матрицы в статическую мт2,необходимо для корректного расчета коэффициентов умножения строк перед вычитанием*/
+			/*ГЄГ®ГЇГЁГ°Г®ГўГ Г­ГЁГҐ Г°Г ГЎГ®Г·ГҐГ© Г¬Г ГІГ°ГЁГ¶Г» Гў Г±ГІГ ГІГЁГ·ГҐГ±ГЄГіГѕ Г¬ГІ2,Г­ГҐГ®ГЎГµГ®Г¤ГЁГ¬Г® Г¤Г«Гї ГЄГ®Г°Г°ГҐГЄГІГ­Г®ГЈГ® Г°Г Г±Г·ГҐГІГ  ГЄГ®ГЅГґГґГЁГ¶ГЁГҐГ­ГІГ®Гў ГіГ¬Г­Г®Г¦ГҐГ­ГЁГї Г±ГІГ°Г®ГЄ ГЇГҐГ°ГҐГ¤ ГўГ»Г·ГЁГІГ Г­ГЁГҐГ¬*/
 			for(int x=0;x<this.GetRowCount();x++)
 			{
 				for(int y=0;y<this.GetColCount();y++)
@@ -234,7 +234,7 @@ public class TMatrix implements IMatrix {
 					mt2.SetItem(x, y, mt1.GetItem(x, y));
 				}
 			}
-			//зануление i-того столбца
+			//Г§Г Г­ГіГ«ГҐГ­ГЁГҐ i-ГІГ®ГЈГ® Г±ГІГ®Г«ГЎГ¶Г 
 			for(int j=i+1;j<this.GetRowCount();j++)
 			{
 				for(int k=0;k<this.GetColCount();k++)
@@ -243,7 +243,7 @@ public class TMatrix implements IMatrix {
 					mt1.SetItem(j, k, tmp);
 				}
 			}
-			//вычисление определителя	
+			//ГўГ»Г·ГЁГ±Г«ГҐГ­ГЁГҐ Г®ГЇГ°ГҐГ¤ГҐГ«ГЁГІГҐГ«Гї	
 		}
 		for(int x=0;x<this.GetRowCount();x++)
 		{
@@ -301,7 +301,7 @@ public class TMatrix implements IMatrix {
 	@Override
 	public IMatrix Invers() {
 		if (this.GetRowCount()!=this.GetColCount()) {
-			System.out.println("не квадратная матрица");
+			System.out.println("Г­ГҐ ГЄГўГ Г¤Г°Г ГІГ­Г Гї Г¬Г ГІГ°ГЁГ¶Г ");
 			return null;
 		}
 		IMatrix X = new TMatrix(this.GetRowCount(),this.GetColCount());
@@ -374,7 +374,7 @@ public class TMatrix implements IMatrix {
 	public IMatrix Holetckogo()
 	{	
 		if (this.Silvestr()==false) {
-			System.out.println("не положительна определена");
+			System.out.println("Г­ГҐ ГЇГ®Г«Г®Г¦ГЁГІГҐГ«ГјГ­Г  Г®ГЇГ°ГҐГ¤ГҐГ«ГҐГ­Г ");
 			return null;
 		}
 		
